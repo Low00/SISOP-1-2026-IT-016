@@ -164,14 +164,25 @@ done
 while true
 do
 
+cat << "EOF"
+<-.(`-')             (`-').->(`-')          (`-').->          (`-')  _<-.(`-')  (`-')  _     .->   
+ __( OO)      .->    ( OO)_  ( OO).->       ( OO)_     <-.    ( OO).-/ __( OO)  ( OO).-/ (`(`-')/`)
+'-'. ,--.(`-')----. (_)--\_) /    '._      (_)--\_)  ,--. )  (,------.'-'---.\ (,------.,-`( OO).',
+|  .'   /( OO).-.  '/    _ / |'--...__)    /    _ /  |  (`-') |  .---'| .-. (/  |  .---'|  |\  |  |
+|      /)( _) | |  |\_..`--. `--.  .--'    \_..`--.  |  |OO )(|  '--. | '-' `.)(|  '--. |  | '.|  |
+|  .   '  \|  |)|  |.-._)   \   |  |       .-._)   \(|  '__ | |  .--' | /`'.  | |  .--' |  |.'.|  |
+|  |\   \  '  '-'  '\       /   |  |       \       / |     |' |  `---.| '--'  / |  `---.|   ,'.   |
+`--' '--'   `-----'  `-----'    `--'        `-----'  `-----'  `------'`------'  `------'`--'   '--'
+EOF
+
 echo "=============================="
 echo "SISTEM MANAJEMEN KOST"
 echo "1. Tambah Penghuni"
 echo "2. Hapus Penghuni"
 echo "3. Tampilkan Daftar Penghuni"
 echo "4. Update Status Penghuni"
-echo "5. Laporan Keuangan"
-echo "6. Kelola Cron"
+echo "5. Cetak Laporan Keuangan"
+echo "6. Kelola Cron (Pengingat Tagihan)"
 echo "7. Exit"
 echo "=============================="
 
