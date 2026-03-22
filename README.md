@@ -27,7 +27,7 @@ Logika:
 -F',' → delimiter file adalah koma (CSV) \
 NR>1 → skip header (baris pertama) \
 count++ → hitung jumlah baris (penumpang) \
-END → tampilkan hasil \
+END → tampilkan hasil
 
 Artinya -> setiap baris data dianggap 1 penumpang.
 
@@ -41,7 +41,7 @@ print "Jumlah gerbong penumpang KANJ adalah",length(car)
 Logika:
 $4 → kolom ke-4 (nomor gerbong) \
 car[$4]=1 → simpan gerbong unik sebagai key array \
-length(car) → jumlah key unik \
+length(car) → jumlah key unik
 
 Jadi tidak menghitung semua data, tapi hanya gerbong yang berbeda.
 
@@ -62,7 +62,7 @@ $2 → kolom usia \
 Bandingkan dengan max \
 Jika lebih besar → update: \
 max = usia \
-name = nama penumpang \
+name = nama penumpang
 
 #### *d. Menghitung Rata-rata Usia*
 ```BASH
@@ -79,7 +79,7 @@ Logika:
 sum += $2 → jumlahkan semua usia \
 count++ → hitung jumlah penumpang \
 avg = sum/count → rata-rata \
-%.0f → dibulatkan tanpa desimal \
+%.0f → dibulatkan tanpa desimal 
 
 #### *e. Menghitung Penumpang Business Class*
 ```BASH
@@ -90,7 +90,7 @@ print "Jumlah penumpang business class ada",count,"orang"
 ```
 Logika:
 $3=="Business" → filter hanya kelas Business \
-count++ → hitung jumlahnya \
+count++ → hitung jumlahnya
 
 #### *Error Handling*
 ```BASH
