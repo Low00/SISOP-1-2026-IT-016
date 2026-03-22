@@ -8,7 +8,7 @@ Tujuan -> Membuat sebuah script KANJ.sh menggunakan awk untuk mengolah data pada
 ### Step by Step 
 (Sebelumnya, kita membuat mkdir soal_1 lalu membuat program dengan nano KANJ.sh dan mendownload wget passenger.csv dalam dir)
 
-*Input User*
+####*Input User*
 Program meminta user memilih soal :
 ```BASH
 echo "Pilih soal (a/b/c/d/e):"
@@ -16,7 +16,7 @@ read opsi
 ```
 Kemudian menggunakan case untuk menentukan proses berdasarkan input.
 
-*a. Menghitung Jumlah Penumpang*
+####*a. Menghitung Jumlah Penumpang*
 ```BASH
 awk -F',' 'NR>1 {count++}
 END{
@@ -24,14 +24,14 @@ print "Jumlah seluruh penumpang KANJ adalah",count,"orang"
 }' passenger.csv
 ```
 Logika:
--F',' → delimiter file adalah koma (CSV)
-NR>1 → skip header (baris pertama)
-count++ → hitung jumlah baris (penumpang)
-END → tampilkan hasil
+-F',' → delimiter file adalah koma (CSV) \
+NR>1 → skip header (baris pertama) \
+count++ → hitung jumlah baris (penumpang) \
+END → tampilkan hasil \
 
 Artinya -> setiap baris data dianggap 1 penumpang.
 
-*b. Menghitung Jumlah Gerbong*
+####*b. Menghitung Jumlah Gerbong*
 ```BASH
 awk -F',' 'NR>1 {car[$4]=1}
 END{
@@ -39,13 +39,13 @@ print "Jumlah gerbong penumpang KANJ adalah",length(car)
 }' passenger.csv
 ```
 Logika:
-$4 → kolom ke-4 (nomor gerbong)
-car[$4]=1 → simpan gerbong unik sebagai key array
-length(car) → jumlah key unik
+$4 → kolom ke-4 (nomor gerbong) \
+car[$4]=1 → simpan gerbong unik sebagai key array \
+length(car) → jumlah key unik \
 
 Jadi tidak menghitung semua data, tapi hanya gerbong yang berbeda.
 
-*c. Mencari Penumpang Tertua*
+####*c. Mencari Penumpang Tertua*
 ```BASH
 awk -F',' 'NR>1{
 if($2>max){
@@ -58,13 +58,13 @@ print name,"adalah penumpang kereta tertua dengan usia",max,"tahun"
 }' passenger.csv
 ```
 Logika:
-$2 → kolom usia
-Bandingkan dengan max
-Jika lebih besar → update:
-max = usia
-name = nama penumpang
+$2 → kolom usia \
+Bandingkan dengan max \
+Jika lebih besar → update: \
+max = usia \
+name = nama penumpang \
 
-*d. Menghitung Rata-rata Usia*
+####*d. Menghitung Rata-rata Usia*
 ```BASH
 awk -F',' 'NR>1{
 sum+=$2
@@ -76,12 +76,12 @@ printf "Rata-rata usia penumpang adalah %.0f tahun\n",avg
 }' passenger.csv
 ```
 Logika:
-sum += $2 → jumlahkan semua usia
-count++ → hitung jumlah penumpang
-avg = sum/count → rata-rata
-%.0f → dibulatkan tanpa desimal
+sum += $2 → jumlahkan semua usia \
+count++ → hitung jumlah penumpang \
+avg = sum/count → rata-rata \
+%.0f → dibulatkan tanpa desimal \
 
-*e. Menghitung Penumpang Business Class*
+####*e. Menghitung Penumpang Business Class*
 ```BASH
 awk -F',' 'NR>1 && $3=="Business"{count++}
 END{
@@ -89,17 +89,18 @@ print "Jumlah penumpang business class ada",count,"orang"
 }' passenger.csv
 ```
 Logika:
-$3=="Business" → filter hanya kelas Business
-count++ → hitung jumlahnya
+$3=="Business" → filter hanya kelas Business \
+count++ → hitung jumlahnya \
 
-*Error Handling*
+####*Error Handling*
 ```BASH
 *)
 echo "Soal tidak dikenali. Gunakan a/b/c/d/e"
 ```
 Jika user memasukkan input selain a–e, program akan menampilkan pesan error.
 
-*Output*
+### Output
+
 Soal a
 ```BASH
 └─$ ./KANJ.sh
@@ -148,5 +149,5 @@ x
 Soal tidak dikenali. Gunakan a/b/c/d/e
 ```
 
-## Kendala
+### Kendala
 Tidak ada kendala
