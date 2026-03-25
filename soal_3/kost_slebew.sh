@@ -12,12 +12,12 @@ touch $DATA $LOG $REKAP $SAMPAH
 # ===== FUNCTION =====
 
 cek_tagihan(){
-echo "=== CEK TAGIHAN ==="
+waktu=$(date "+%Y-%m-%d %H:%M:%S")
 
-awk -F',' '
+awk -F',' -v w="$waktu" '
 {
 if($5=="Menunggak"){
-print "[!] Penghuni",$1,"kamar",$2,"menunggak"
+printf "[%s] TAGIHAN: %s (Kamar: %s) - Menunggak Rp%s\n", w, $1, $2, $3
 }
 }
 ' $DATA >> $LOG
