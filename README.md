@@ -282,3 +282,138 @@ Pusat Pusaka: -7.928980, 112.459050
 ### Kendala
 Tidak ada kendala
 
+## Soal 3 - KOST SLEBEW AMBATUKAM
+*Author : Kenz*
+
+Tujuan -> Membuat sistem manajemen kost berbasis Bash Script yang dapat mengelola data penghuni, status pembayaran, laporan keuangan, serta otomatisasi pengecekan tagihan menggunakan cron.
+
+### Step by Step
+(Sebelumnya, kita membuat mkdir soal_3 lalu membuat program dengan nano kost_slebew.sh)
+
+#### *1. Inisialisasi File dan Folder*
+Membuat struktur folder otomatis jika belum ada:
+```BASH
+mkdir -p data log rekap sampah
+touch data/penghuni.csv log/tagihan.log rekap/laporan_bulanan.txt sampah/history_hapus.csv
+```
+
+#### *2. Tambah Penghuni (Opsi 1)*
+```BASH
+echo "$nama,$kamar,$harga,$tanggal,$status" >> $DATA
+```
+Logika:
+- Input:
+  Nama
+  Nomor kamar (harus angka & tidak boleh duplikat)
+  Harga sewa (angka)
+  Tanggal masuk (format YYYY-MM-DD & valid)
+  Status (Aktif/Menunggak)
+- Data disimpan dalam format CSV
+
+#### *3. Hapus Penghuni (Opsi 2)*
+```BASH
+grep "$nama" $DATA | awk -v t="$tanggal" 'BEGIN{FS=OFS=","}{print $0,t}' >> $SAMPAH
+sed -i "/$nama/d" $DATA
+```
+Logika:
+- Cari penghuni berdasarkan nama
+- Data dipindahkan ke:
+  sampah/history_hapus.csv
+- Ditambahkan tanggal penghapusan
+- Data dihapus dari database utama
+
+#### *4. Tampilkan Penghuni (Opsi 3)*
+```BASH
+awk -F',' '
+{
+printf "%d | %s | %s | Rp%s | %s\n", NR,$1,$2,$3,$5
+}
+' $DATA
+```
+Logika:
+- Menampilkan semua data penghuni dalam bentuk tabel
+- Menampilkan:
+  Nomor, Nama, Kamar, Harga, Status
+- Menghitung total penghuni
+
+#### *5. Update Status & Laporan Keuangan (Opsi 4 & 5)*
+```BASH
+if($1==n){
+$5=s
+}
+```
+Logika:
+- Cari penghuni berdasarkan nama
+- Ubah status menjadi Aktif atau Menunggak
+- File diperbarui menggunakan file sementara
+
+```BASH
+if($5=="Aktif"){
+total+=$3
+}
+if($5=="Menunggak"){
+nunggak+=$3
+}
+```
+Logika:
+- Menghitung:
+  Total pemasukan (Aktif)
+  Total tunggakan
+  Jumlah kamar aktif
+- Disimpan ke:
+  rekap/laporan_bulanan.txt
+
+#### *6. Sistem Cron Tagihan (Opsi 6)*
+```BASH
+(crontab -l 2>/dev/null; echo "$menit $jam * * * bash $path_script --check-tagihan") | crontab -
+```
+Logika:
+- Menambahkan cron job untuk menjalankan:
+  --check-tagihan
+- Program akan:
+  Mengecek penghuni Menunggak
+  Mencatat ke log/tagihan.log
+
+#### *7. Cek Tagihan (Mode Cron)*
+```BASH
+if($5=="Menunggak"){
+print "[!] Penghuni",$1,"kamar",$2,"menunggak"
+}
+```
+Logika:
+- Membaca penghuni.csv
+- Jika status Menunggak → dicatat ke log
+- Digunakan otomatis oleh cron
+
+#### *8. Exit Program (Opsi 7)*
+```BASH
+7) echo "Keluar..."; exit ;;
+```
+Logika:
+- Program berhenti dari menu interaktif
+
+### Output
+
+Tambah Penghuni:
+```BASH
+Masukkan Nama: Budi
+Masukkan Nomor Kamar: 2
+Masukkan Harga Sewa: 500000
+Masukkan Tanggal Masuk: 2026-03-01
+Status: Aktif
+Penghuni berhasil ditambahkan.
+```
+Tampilkan Penghuni:
+```BASH
+No | Nama | Kamar | Harga | Status
+1 | Budi | 2 | Rp500000 | Aktif
+Total: 1 penghuni
+```
+Laporan Keuangan:
+```BASH
+Total pemasukan (Aktif): Rp500000
+Total tunggakan: Rp0
+Jumlah kamar terisi: 1
+```
+### Kendala
+Tidak ada kendala
