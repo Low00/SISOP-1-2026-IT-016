@@ -273,7 +273,7 @@ END {
 ' titik-penting.txt > posisi-pusaka.txt
 ```
 ### Output
-Execute file dengan "chmod +x nemupusaka.sh"
+Execute file dengan "chmod +x nemupusaka.sh" \
 Hasil output koordinat akan masuk dalam file posisi-pusaka.txt :
 ```BASH
 └─$ cat posisi-pusaka.txt
