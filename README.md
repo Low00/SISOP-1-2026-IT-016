@@ -100,6 +100,7 @@ echo "Soal tidak dikenali. Gunakan a/b/c/d/e"
 Jika user memasukkan input selain a–e, program akan menampilkan pesan error.
 
 ### Output
+Execute file dengan "chmod +x KANJ.sh"
 
 Soal a
 ```BASH
@@ -184,4 +185,100 @@ Disini kita masuk ke folder peta-gunung-kawi dan mendapatkan file gsxtrack.json
 
 #### *3. Merapikan Data Koordinat dalam File json*
 Sekarang kita membuat sh script dengan nama parserkoordinat.sh yang menggunakan regex untuk mengambil data site_name, latitude(x), longitude(y), dll.
+-> Program menggunakan awk dengan delimiter : untuk membaca file JSON baris per baris.
+
+##### 1. Mengambil ID
+```BASH
+/"id"/ {
+    gsub(/[", ]/, "", $2)
+    id=$2
+}
+```
+Logika:
+Mencari baris yang mengandung "id" \
+Menghapus tanda kutip, koma, dan spasi \
+Menyimpan ke variabel id
+
+##### 2. Mengambil Nama Lokasi
+```BASH
+/site_name/ {
+    gsub(/[",]/, "", $2)
+    site=$2
+}
+```
+Logika:
+Mengambil nilai site_name \
+Membersihkan karakter tidak perlu \
+Disimpan ke variabel site
+
+##### 3. Mengambil Latitude
+```BASH
+/latitude/ {
+    gsub(/[", ]/, "", $2)
+    lat=$2
+}
+```
+Logika:
+Mengambil nilai latitude \
+Disimpan ke variabel lat \
+
+##### 4. Mengambil Longitude & Output
+```BASH
+/longitude/ {
+    gsub(/[", ]/, "", $2)
+    lon=$2
+    printf "%s,%s,%s,%s\n", id, site, lat, lon
+}
+' gsxtrack.json > titik-penting.txt
+```
+Logika:
+Mengambil nilai longitude \
+Disimpan ke variabel lon \
+Cetak id, site, lat, lon \
+Hasil output dibuat dan dimasukkan dalam file titik-penting.txt
+
+-> Kita coba "cat titik-penting.txt"
+```BASH
+└─$ cat titik-penting.txt
+node_001, Titik Berak Paman Mas Mba,-7.920000,112.450000
+node_002, Basecamp Mas Fuad,-7.920000,112.468100
+node_003, Gerbang Dimensi Keputih,-7.937960,112.468100
+node_004, Tembok Ratapan Keputih,-7.937960,112.450000
+```
+Kita bisa melihat map dengan keempat titik koordinat lokasi dalam file gsxtrack.json
+
+#### *4. Mencari Titik Tengah Koordinat*
+Lokasi pusaka dicari dengan menemukan titik pusat menggunakan metode titik simetri diagonal (Menggunakan rumus yang diberikan di soal).
+Kita membuat code rumus-nya dalam file nemupusaka.txt :
+```BASH
+#!/bin/bash
+
+awk -F',' '
+NR==1 {
+    lat1=$3
+    lon1=$4
+}
+
+NR==3 {
+    lat3=$3
+    lon3=$4
+}
+
+END {
+    mid_lat=(lat1+lat3)/2
+    mid_lon=(lon1+lon3)/2
+
+    printf "Pusat Pusaka: %.6f, %.6f\n", mid_lat, mid_lon
+}
+' titik-penting.txt > posisi-pusaka.txt
+```
+### Output
+Execute file dengan "chmod +x nemupusaka.sh"
+Hasil output koordinat akan masuk dalam file posisi-pusaka.txt :
+```BASH
+└─$ cat posisi-pusaka.txt
+Pusat Pusaka: -7.928980, 112.459050
+```
+### Kendala
+Tidak ada kendala
 
