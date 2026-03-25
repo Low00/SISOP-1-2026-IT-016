@@ -151,3 +151,37 @@ Soal tidak dikenali. Gunakan a/b/c/d/e
 
 ### Kendala
 Tidak ada kendala
+
+## Soal 2 - EKSPEDISI PESUGIHAN GUNUNG KAWI - MAS AMBA
+*Author : asisten_kalkuluz*
+
+Tujuan -> Melakukan serangkaian proses pengolahan data menggunakan Bash Script. Proses dimulai dari pengunduhan file, ekstraksi data dari JSON, hingga perhitungan koordinat untuk menentukan lokasi pusat pesugihan.
+### Step by Step
+(Sebelumnya, kita membuat mkdir soal_2 lalu download pkg tools gdown dalam sh dengan sudo apt install gdown)
+
+#### *1. Download dan Persiapan Data*
+Mengunduh file dengan :
+```BASH
+gdown https://drive.google.com/uc?id=1q10pHSC3KFfvEiCN3V6PTroPR7YGHF6Q
+```
+Lalu simpan pdf ke dalam folder baru "ekspedisi" :
+```BASH
+mkdir ekspedisi
+mv peta-ekspedisi-amba.pdf ekspedisi/
+```
+Dan masuk dir ekspedisi.
+
+#### *2. Extract Pdf*
+Menggunakan cat kita extract teks dari pdf-nya :
+```BASH 
+cat peta-ekspedisi-amba.pdf
+```
+Kita menemukan link git clone di akhir text : https://github.com/pocongcyber77/peta-gunung-kawi.git
+```BASH
+git clone https://github.com/pocongcyber77/peta-gunung-kawi.git
+```
+Disini kita masuk ke folder peta-gunung-kawi dan mendapatkan file gsxtrack.json
+
+#### *3. Merapikan Data Koordinat dalam File json*
+Sekarang kita membuat sh script dengan nama parserkoordinat.sh yang menggunakan regex untuk mengambil data site_name, latitude(x), longitude(y), dll.
+
