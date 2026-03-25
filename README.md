@@ -220,7 +220,7 @@ Disimpan ke variabel site
 ```
 Logika:
 Mengambil nilai latitude \
-Disimpan ke variabel lat \
+Disimpan ke variabel lat 
 
 ##### 4. Mengambil Longitude & Output
 ```BASH
