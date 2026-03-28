@@ -72,14 +72,14 @@ count++
 }
 END{
 avg=sum/count
-printf "Rata-rata usia penumpang adalah %.0f tahun\n",avg
+printf "Rata-rata usia penumpang adalah %d tahun\n",avg
 }' passenger.csv
 ```
 Logika:
 sum += $2 → jumlahkan semua usia \
 count++ → hitung jumlah penumpang \
 avg = sum/count → rata-rata \
-%.0f → dibulatkan tanpa desimal 
+%d → dibulatkan ke bawah
 
 #### *e. Menghitung Penumpang Business Class*
 ```BASH
@@ -131,7 +131,7 @@ Soal d
 └─$ ./KANJ.sh
 Pilih soal (a/b/c/d/e):
 d
-Rata-rata usia penumpang adalah 38 tahun
+Rata-rata usia penumpang adalah 37 tahun
 ```
 
 Soal e

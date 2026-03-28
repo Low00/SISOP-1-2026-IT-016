@@ -1,3 +1,3 @@
-Total pemasukan (aktif): Rp 0
-Total tunggakan: Rp 0
-Jumlah kamar aktif: 0
+Total pemasukan (Aktif): Rp100000
+Total tunggakan: Rp5000
+Jumlah kamar terisi: 1
