@@ -417,3 +417,27 @@ Jumlah kamar terisi: 1
 ```
 ### Kendala
 Tidak ada kendala
+
+### Revisi
+-> Ada revisi dalam soal_1 dimana dalam file KANJ.sh opsi d:
+```BASH
+awk -F',' 'NR>1{
+sum+=$2
+count++
+}
+END{
+avg=int(sum/count)
+printf "Rata-rata usia penumpang adalah %d tahun\n",avg
+}' passenger.csv
+```
+Pada bagian :
+```BASH
+avg=sum/count
+printf "Rata-rata usia penumpang adalah %.0f tahun\n",avg
+```
+Diganti menjadi :
+```BASH
+avg=int(sum/count)
+printf "Rata-rata usia penumpang adalah %d tahun\n",avg
+```
+Sehingga nilai yang sebelumnya dibulatkan ke atas (menjadi 38) diubah menjadi pembulatan ke bawah (menjadi 37)
