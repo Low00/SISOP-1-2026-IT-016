@@ -71,7 +71,7 @@ sum+=$2
 count++
 }
 END{
-avg=sum/count
+avg=int(sum/count)
 printf "Rata-rata usia penumpang adalah %d tahun\n",avg
 }' passenger.csv
 ```
